@@ -5,6 +5,6 @@
 
 Для запуска Задания №1 достаточно загрузить файл "ConsoleApp-1.0-SNAPSHOT-jar-with-dependencies.jar" из папки Task №1 на свой компьютер, после чего в папке с этим файлом открыть Командную строку и ввести команду "java -jar ConsoleApp-1.0-SNAPSHOT-jar-with-dependencies.jar" (без ковычек).
 
-Для запуска Заданяи №2 достаточно загрузить файл "web-service-0.0.1-SNAPSHOT.jar" из папки Task №2 на свой компьютер, после чего в папке с этим файлом открыть Командную строку и ввести команду "java -jar web-service-0.0.1-SNAPSHOT.jar" (без ковычек).
+Для запуска Задания №2 достаточно загрузить файл "web-service-0.0.1-SNAPSHOT.jar" из папки Task №2 на свой компьютер, после чего в папке с этим файлом открыть Командную строку и ввести команду "java -jar web-service-0.0.1-SNAPSHOT.jar" (без ковычек).
 
-Для запуска Заданяи №3 достаточно скачать папку Task №3 и двойным шелчком мыши запустить файл "Web_aplication_starter.bat" (это скрипт, который автоматически запустит файл "web-service-0.0.1-SNAPSHOT.jar" и фронтенд для приложения из папки "frontend"). Исходный код файла "Web_aplication_starter.bat" лежит в текстовом документе "Web_aplication_starter_source_code.txt".
+Для запуска Задания №3 достаточно скачать папку Task №3 и двойным шелчком мыши запустить файл "Web_aplication_starter.bat" (это скрипт, который автоматически запустит файл "web-service-0.0.1-SNAPSHOT.jar" и фронтенд для приложения из папки "frontend"). Исходный код файла "Web_aplication_starter.bat" лежит в текстовом документе "Web_aplication_starter_source_code.txt".
