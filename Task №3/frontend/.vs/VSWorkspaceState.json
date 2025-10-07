@@ -3,8 +3,8 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\apiBackendConection"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\src\\components\\Game.jsx",
   "PreviewInSolutionExplorer": false
 }

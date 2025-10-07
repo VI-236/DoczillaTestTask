@@ -2,7 +2,7 @@
 import './Game.css';
 
 const Game = () => {
-    const [gameState, setGameState] = useState('setup'); // 'setup', 'playing', 'finished'
+    const [gameState, setGameState] = useState('setup');
     const [boardSize, setBoardSize] = useState(5);
     const [playerColor, setPlayerColor] = useState('white');
     const [board, setBoard] = useState([]);
@@ -11,7 +11,6 @@ const Game = () => {
     const [message, setMessage] = useState('');
     const [isAIMakingMove, setIsAIMakingMove] = useState(false);
 
-    // Инициализация пустой доски
     const initializeBoard = (size) => {
         const newBoard = [];
         for (let i = 0; i < size; i++) {
@@ -24,12 +23,10 @@ const Game = () => {
         return newBoard;
     };
 
-    // Преобразование доски в строку для отправки на сервер
     const boardToString = (boardArray) => {
         return boardArray.flat().join('');
     };
 
-    // Преобразование строки от сервера в доску
     const stringToBoard = (str, size) => {
         const newBoard = [];
         for (let i = 0; i < size; i++) {
@@ -39,7 +36,6 @@ const Game = () => {
         return newBoard;
     };
 
-    // Начало новой игры
     const startGame = async () => {
         const newBoard = initializeBoard(boardSize);
         setBoard(newBoard);
@@ -48,7 +44,6 @@ const Game = () => {
         setMessage('');
         setGameState('playing');
 
-        // Если игрок выбрал черный цвет, AI ходит первым
         if (playerColor === 'black') {
             setIsAIMakingMove(true);
             await makeAIMove(newBoard);
@@ -56,7 +51,6 @@ const Game = () => {
         }
     };
 
-    // Универсальная функция для отправки запросов к API
     const apiRequest = async (endpoint, data) => {
         try {
             const response = await fetch(`http://localhost:8080/api/${endpoint}`, {
@@ -80,7 +74,6 @@ const Game = () => {
         }
     };
 
-    // Проверка статуса игры на сервере
     const checkGameStatus = async (currentBoard) => {
         try {
             const boardData = {
@@ -91,20 +84,16 @@ const Game = () => {
 
             const statusData = await apiRequest('square/gameStatus', boardData);
 
-            // Обработка ответа от сервера
             if (statusData.status === 1) {
-                // Есть победитель
                 const winnerColor = statusData.color === 'w' ? 'white' : 'black';
                 setWinner(winnerColor);
                 setMessage(`Game finished. ${winnerColor} wins!`);
                 setGameState('finished');
             } else if (statusData.status === 2) {
-                // Ничья
                 setWinner('draw');
                 setMessage("It's a draw! No more moves available.");
                 setGameState('finished');
             } else if (statusData.message) {
-                // Отображаем сообщение от сервера, если есть
                 setMessage(statusData.message);
             }
 
@@ -115,26 +104,22 @@ const Game = () => {
         }
     };
 
-    // Ход игрока
     const handlePlayerMove = async (row, col) => {
         if (gameState !== 'playing') return;
         if (board[row][col] !== ' ') return;
         if (currentPlayer !== playerColor) return;
-        if (isAIMakingMove) return; // Не позволяем игроку ходить, пока AI делает ход
+        if (isAIMakingMove) return; 
 
         const newBoard = [...board];
         newBoard[row][col] = playerColor === 'white' ? 'w' : 'b';
         setBoard(newBoard);
 
-        // Проверяем статус после хода
         const status = await checkGameStatus(newBoard);
 
         if (status.status === 0) {
-            // Игра продолжается, переключаем игрока
             const nextPlayer = currentPlayer === 'white' ? 'black' : 'white';
             setCurrentPlayer(nextPlayer);
 
-            // Если следующий ход за AI, делаем ход
             if (nextPlayer !== playerColor) {
                 setIsAIMakingMove(true);
                 await makeAIMove(newBoard);
@@ -143,7 +128,6 @@ const Game = () => {
         }
     };
 
-    // Ход AI (сервера)
     const makeAIMove = async (currentBoard) => {
         try {
             const boardData = {
@@ -154,7 +138,6 @@ const Game = () => {
 
             const moveData = await apiRequest('square/nextMove', boardData);
 
-            // Проверяем корректность ответа от сервера
             if (moveData.x === undefined || moveData.y === undefined) {
                 throw new Error('Invalid move data received from server');
             }
@@ -163,11 +146,9 @@ const Game = () => {
             newBoard[moveData.x][moveData.y] = playerColor === 'white' ? 'b' : 'w';
             setBoard(newBoard);
 
-            // Проверяем статус после хода AI
             const status = await checkGameStatus(newBoard);
 
             if (status.status === 0) {
-                // Игра продолжается, переключаем обратно на игрока
                 setCurrentPlayer(playerColor);
             }
         } catch (error) {
@@ -176,19 +157,16 @@ const Game = () => {
         }
     };
 
-    // Перезапуск игры
     const restartGame = () => {
         startGame();
     };
 
-    // Завершение игры
     const finishGame = () => {
         setGameState('setup');
         setWinner(null);
         setMessage('');
     };
 
-    // Рендеринг клетки доски
     const renderCell = (row, col) => {
         const cellValue = board[row][col];
         let cellClass = 'cell';
@@ -199,7 +177,6 @@ const Game = () => {
             cellClass += ' black';
         }
 
-        // Блокируем клетки, если ходит AI
         if (isAIMakingMove || (gameState === 'playing' && currentPlayer !== playerColor)) {
             cellClass += ' disabled';
         }
@@ -213,7 +190,6 @@ const Game = () => {
         );
     };
 
-    // Рендеринг всей доски
     const renderBoard = () => {
         return (
             <div className="board">
@@ -226,7 +202,6 @@ const Game = () => {
         );
     };
 
-    // Компонент настройки игры
     const GameSetup = () => (
         <div className="game-setup">
             <h2>Game Setup</h2>
@@ -260,7 +235,6 @@ const Game = () => {
         </div>
     );
 
-    // Компонент игрового процесса
     const GamePlaying = () => (
         <div className="game-playing">
             <div className="game-info">
@@ -281,7 +255,6 @@ const Game = () => {
         </div>
     );
 
-    // Компонент завершения игры
     const GameFinished = () => (
         <div className="game-finished">
             <h2>{message}</h2>
