@@ -11,5 +11,5 @@ public class GameBoard {
 
     @Setter
     @Getter
-    private int [][] board;
+    private char [][] board;
 }

@@ -8,16 +8,13 @@ public class WinChecker {
 
     private IsValidMove moveChecker = new IsValidMove();
 
-
-    //Попробовать WinChecker перенести в класс Movement, а оттуда при сложении победной комбинации, добавлять
-    // нужный параметр в CurrentGameData и проверять уже его для завершения игры.
     public boolean winChek(int coordinateX, int coordinateY, GameBoard gameBoard){
 
         System.out.println("Enter coordinate Х: " + coordinateX);
         System.out.println("Enter coordinate Y: " + coordinateY);
-        int [][] temporaryBoard = gameBoard.getBoard();
+        char [][] temporaryBoard = gameBoard.getBoard();
 
-        int colorOfCell = temporaryBoard[coordinateX][coordinateY];
+        char colorOfCell = temporaryBoard[coordinateX][coordinateY];
 
         //Small square checker:
         //_ _ _ _ _
@@ -121,12 +118,11 @@ public class WinChecker {
                 System.out.println("The big square is found.");
                 return win = true;
             }
-//        System.out.println("Закончил проверку большого квадрата.");
 
             //Rhombus checker:
             //_ _ o _ _
             //_ o _ o _
-            //_ _ o _
+            //_ _ o _ _
             if (moveChecker.moveValidator(coordinateX + 1, coordinateY + 1, gameBoard) &&
                     temporaryBoard[coordinateX + 1][coordinateY + 1] == colorOfCell &&
 

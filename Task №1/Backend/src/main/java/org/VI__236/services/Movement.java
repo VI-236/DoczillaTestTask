@@ -20,12 +20,12 @@ public class Movement {
 
     public boolean move(int coordinateX, int coordinateY, int boardSize, CurrentGameData currentGameData, Color color){
 
-        int [][] temporaryBoard = currentGameData.getGameBoard().getBoard();
+        char [][] temporaryBoard = currentGameData.getGameBoard().getBoard();
 
         if(isValidMove.moveValidator(coordinateX, coordinateY, currentGameData.getGameBoard())||
                 !isBoardFull.isBoardFull(currentGameData.getGameBoard(), boardSize)) {
             if (color.equals(Color.WHITE)){
-                temporaryBoard[coordinateX][coordinateY] = 1;
+                temporaryBoard[coordinateX][coordinateY] = 'w';
 
                 gameBoard.setBoard(temporaryBoard);
                 currentGameData.setGameBoard(gameBoard);
@@ -33,7 +33,7 @@ public class Movement {
                 System.out.println("White move.");
             }
             else if (color.equals(Color.BLACK)){
-                temporaryBoard[coordinateX][coordinateY] = 2;
+                temporaryBoard[coordinateX][coordinateY] = 'b';
                 System.out.println("Black move.");
             }
             moveIsDone = true;
@@ -50,7 +50,7 @@ public class Movement {
 
             currentGameData.setNumOfTurns(currentGameData.getNumOfTurns() + 1);
 
-            System.out.println("Number of moves: " + currentGameData.getNumOfTurns());
+            System.out.println("Number of move: " + currentGameData.getNumOfTurns());
 
         }
         currentGameData.setWinCombination(winChecker.winChek(coordinateX,
@@ -88,9 +88,9 @@ public class Movement {
                 break;
             }
 
-            int [][] temporaryBoard = currentGameData.getGameBoard().getBoard();
+            char [][] temporaryBoard = currentGameData.getGameBoard().getBoard();
 
-            if (temporaryBoard[coordinateX][coordinateY] != 0 || currentGameData.isFreeCells() == false){
+            if (temporaryBoard[coordinateX][coordinateY] != '_' || currentGameData.isFreeCells() == false){
                 return moveIsDone = false;
             }
             else{
@@ -99,21 +99,21 @@ public class Movement {
                     temporaryBoard = gameBoard.getBoard();
 
                     if(currentGameData.getWhoesTurnNext() == Color.WHITE){
-                        temporaryBoard[coordinateX][coordinateY] = 1;
+                        temporaryBoard[coordinateX][coordinateY] = 'w';
 
                         gameBoard.setBoard(temporaryBoard);
                         currentGameData.setGameBoard(gameBoard);
 
                         System.out.println("White move.");
-                        System.out.println("Number of moves: " + currentGameData.getNumOfTurns());
+                        System.out.println("Number of move: " + currentGameData.getNumOfTurns());
                     }
                     else{
-                        temporaryBoard[coordinateX][coordinateY] = 2;
+                        temporaryBoard[coordinateX][coordinateY] = 'b';
                         gameBoard.setBoard(temporaryBoard);
                         currentGameData.setGameBoard(gameBoard);
 
                         System.out.println("Black move.");
-                        System.out.println("Number of moves: " + currentGameData.getNumOfTurns());
+                        System.out.println("Number of move: " + currentGameData.getNumOfTurns());
                     }
                     moveIsDone = true;
                     currentGameData.setFreeCells(isBoardFull.isBoardFull(currentGameData.getGameBoard(),

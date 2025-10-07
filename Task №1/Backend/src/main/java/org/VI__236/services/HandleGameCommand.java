@@ -37,7 +37,12 @@ public class HandleGameCommand {
                 return currentGameData;
             }
             else{
-                int [][] boardSize = new int[size][size];
+                char [][] boardSize = new char[size][size];
+                for (int i = 0; i < boardSize.length; i++) {
+                    for (int j = 0; j < boardSize[i].length; j++) {
+                        boardSize[i][j] = '_';
+                    }
+                }
                 gameBoard.setBoard(boardSize);
 
                 currentGameData.setGameBoard(gameBoard);
@@ -60,7 +65,7 @@ public class HandleGameCommand {
             currentGameData.setWhoesTurnNext(Color.WHITE);
             currentGameData.setFreeCells(true);
             currentGameData.setWinCombination(false);
-            currentGameData.setNumOfTurns(1);
+            currentGameData.setNumOfTurns(0);
 
             System.out.println("New game started");
 
