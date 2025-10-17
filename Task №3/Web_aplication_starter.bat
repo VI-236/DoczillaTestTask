@@ -34,7 +34,7 @@ start "Java Console App" cmd /k "cd /d "%SCRIPT_DIR%" && java -jar web-service-0
 timeout /t 3 /nobreak >nul
 
 echo Launching React Development Server...
-start "React App" cmd /k "cd /d "%SCRIPT_DIR%frontend" && npm start"
+start "React App" cmd /k "cd /d "%SCRIPT_DIR%frontend" && npm install react-scripts --save-dev && npm start"
 
 echo.
 echo Both applications have been launched in separate windows.
