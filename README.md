@@ -1,5 +1,5 @@
 # DoczillaTestTask
-Тестовое задание для компании Dockzilla на позицию Junior Frontend.
+Тестовое задание для компании Dockzilla на позицию Junior Fullstack.
 
 Данный репозиторий содержит исходный код для всех трёх заданий. 
 
